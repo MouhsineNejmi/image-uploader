@@ -3,7 +3,7 @@ import { ReactComponent as Illustration } from '../images/illustration.svg'
 
 const UploadImage = () => {
   return (
-    <div className='w-1/4 h-3/4 rounded-xl tracking-tight text-center font-medium shadow-2xl flex flex-col justify-center items-center'>
+    <div className='w-1/3 h-3/4 rounded-xl tracking-tight text-center font-medium shadow-2xl flex flex-col justify-center items-center'>
       <div>
         <p className='text-[18px] text-[#4F4F4F] pb-3'>Upload your image</p>
         <p className='text-[10px] text-[#828282]'>File should be Jpeg, Png...</p>
