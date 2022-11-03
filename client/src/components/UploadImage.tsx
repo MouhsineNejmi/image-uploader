@@ -1,7 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
 import { ReactComponent as Illustration } from '../images/illustration.svg'
 
 const UploadImage = () => {
+  const URL = 'http://localhost:3001/uploads';
+  
+  const onImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files![0];
+    const formData = new FormData();
+
+    // Adding the file to the FormData
+    formData.append('image', file);
+
+    axios({
+      url: URL,
+      method: 'POST',
+      data: formData
+    }).then((res) => {
+        
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+  
   return (
     <div className='w-1/3 h-3/4 rounded-xl tracking-tight text-center font-medium shadow-2xl flex flex-col justify-center items-center'>
       <div>
@@ -22,12 +44,13 @@ const UploadImage = () => {
       {/* Upload Button */}
       <div className='flex items-center w-1/2'>
         <input
-          type="file"
-          accept="image/*"
+          type='file'
+          accept='image/*'
           className='hidden'
-          id="upload-button"
+          id='upload-button'
+          onChange={onImageUpload}
         />
-        <label htmlFor="upload-button" className='w-full cursor-pointer rounded-md bg-[#2F80ED] text-[12px] text-white py-2'>
+        <label htmlFor='upload-button' className='w-full cursor-pointer rounded-md bg-[#2F80ED] text-[12px] text-white py-2'>
           Choose a file
         </label>
       </div>

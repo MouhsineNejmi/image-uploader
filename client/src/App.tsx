@@ -6,9 +6,9 @@ import UploadResult from './components/UploadResult';
 const App = () => {
   return (
     <div className='h-[100vh] flex justify-center items-center'>
-      {/* <UploadImage /> */}
+      <UploadImage />
       {/* <PendingUpload /> */}
-      <UploadResult />
+      {/* <UploadResult /> */}
     </div>
   );
 }
