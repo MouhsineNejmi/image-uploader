@@ -1,9 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import axios from 'axios';
 import { ReactComponent as Illustration } from '../images/illustration.svg'
 
-const UploadImage = () => {
-  const URL = 'http://localhost:3001/uploads';
+interface TUpload {
+  data: null;
+  isUploading: boolean;
+  error: string;
+}
+
+interface TImage {
+  url: string,
+  isLoading: boolean,
+  error: string
+}
+
+interface IProps {
+  upload: TUpload,
+  setUpload: React.Dispatch<React.SetStateAction<TUpload>>
+  setImageData: React.Dispatch<React.SetStateAction<TImage>>
+}
+
+const UploadImage: React.FC<IProps> = ({ upload, setUpload, setImageData }) => {
+  const { data, isUploading, error } = upload;
+
+  const URL = 'http://localhost:3001/uploads'
   
   const onImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
@@ -12,16 +32,37 @@ const UploadImage = () => {
     // Adding the file to the FormData
     formData.append('image', file);
 
+    setUpload({ data: null, isUploading: true, error: '' });
+
     axios({
       url: URL,
       method: 'POST',
       data: formData
-    }).then((res) => {
-        
+    }).then(({ data }) => {
+        const { key } = data;
+        setUpload({ data: key, isUploading: false, error: '' });
+        key && imageUploaded(key);
+        return key;
       })
       .catch((err) => {
-        console.error(err)
+        setUpload({ data: null, isUploading: false, error: err });
+        return;
       })
+  }
+
+  const imageUploaded = (key: string) => {
+    setImageData({ url: '', isLoading: true , error: '' })
+    const DATA_URL = `${URL}/${key}`
+
+    axios({
+      url: DATA_URL,
+      method: 'GET'
+    }).then(({ data }) => {
+      setImageData({ url: data.url, isLoading: false, error: '' });
+    }).catch((err) => {
+      console.log(err);
+      setImageData({ url: '', isLoading: false, error: err });
+    })
   }
   
   return (
@@ -29,6 +70,7 @@ const UploadImage = () => {
       <div>
         <p className='text-[18px] text-[#4F4F4F] pb-3'>Upload your image</p>
         <p className='text-[10px] text-[#828282]'>File should be Jpeg, Png...</p>
+        { upload.error && <p className='text-[10px] text-red-500 my-2'>{upload.error}</p> }
       </div>
 
       {/* Drag & Drop image placeholder */}

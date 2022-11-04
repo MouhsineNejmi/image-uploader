@@ -23,10 +23,11 @@ app.post('/uploads', upload.single('image'), async (req, res) => {
   return res.status(201).json({ key });
 })
 
-app.get('/uploads/:Key', (req, res) => {
+app.get('/uploads/:Key', async (req, res) => {
   const key = req.params.Key;
-  const file = downloadFile(key);
-  console.log(file);
+  const url = await downloadFile(key);
+  
+  return res.json({ url });
 })
 
 app.listen(PORT, () => {
