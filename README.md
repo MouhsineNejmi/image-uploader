@@ -24,7 +24,8 @@ A small fullstack web app where you can your images to aws cloud (S3) and displa
 
 ## Demo
 
-Insert gif or link to demo
+Gif shows how the web app works
+![](https://github.com/MouhsineNejmi/image-uploader/blob/main/client/src/images/Image%20Uploader%20Preview.gif)
 
 
 ## API Reference
