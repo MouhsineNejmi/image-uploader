@@ -1,4 +1,4 @@
-import React, { FC, Dispatch, SetStateAction, useRef } from 'react'
+import React, { FC, Dispatch, SetStateAction } from 'react'
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone'
 import { ReactComponent as Illustration } from '../images/illustration.svg'
@@ -16,34 +16,28 @@ interface TImage {
 }
 
 interface IProps {
-  upload: TUpload,
   setUpload: Dispatch<SetStateAction<TUpload>>
   setImageData: Dispatch<SetStateAction<TImage>>
 }
 
-const UploadImage: FC<IProps> = ({ upload, setUpload, setImageData }) => {
-  const { data, isUploading, error } = upload;
-  
+const UploadImage: FC<IProps> = ({ setUpload, setImageData }) => {
   const { getRootProps, getInputProps } = useDropzone({
-    accept: {
-      'image/png': ['.png'],
-      'image/jpg': ['.jpg'],
-      'image/jpeg': ['.jpeg'],
-    },
     onDrop: (file) => onImageUpload(null, file[0])
   })
 
-  const URL = 'http://localhost:3001/uploads'
-  
+  const URL = 'http://localhost:3001/uploads';
+  const validFileTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+
   const onImageUpload = (event: React.ChangeEvent<HTMLInputElement> | null, image?: any) => {
     const file = image ? image : event?.target.files![0];
-    console.log(file);
+
+    if (!validFileTypes.find((type) => type === file.type)) {
+      setUpload({ data: null, isUploading: false, error: 'File must be Png, Jpg, or Jpeg' });
+      return;
+    }
     
     const formData = new FormData();
-
-    // Adding the file to the FormData
     formData.append('image', file);
-
     setUpload({ data: null, isUploading: true, error: '' });
 
     axios({
@@ -82,7 +76,6 @@ const UploadImage: FC<IProps> = ({ upload, setUpload, setImageData }) => {
       <div>
         <p className='text-[18px] text-[#4F4F4F] pb-3'>Upload your image</p>
         <p className='text-[10px] text-[#828282]'>File should be Jpeg, Png...</p>
-        { upload.error && <p className='text-[10px] text-red-500 my-2'>{upload.error}</p> }
       </div>
 
       <div {...getRootProps()} className='flex flex-col items-center justify-center cursor-pointer mt-6 w-5/6 h-1/2 mx-auto bg-[#F6F8FB] border-2 border-[#97BEF4] border-dashed rounded-xl z-10 transition-all hover:scale-105'>

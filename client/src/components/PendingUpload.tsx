@@ -7,7 +7,6 @@ const PendingUpload = () => {
       <div className='w-full overflow-hidden h-1 bg-[#F2F2F2] rounded-xl'>
         <div className='h-1 w-full bg-[#2F80ED] animate-pulse'></div>
       </div>
-      
     </div>
   )
 }
