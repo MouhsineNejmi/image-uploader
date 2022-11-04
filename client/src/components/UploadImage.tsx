@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { FC, Dispatch, SetStateAction, useRef } from 'react'
 import axios from 'axios';
+import { useDropzone } from 'react-dropzone'
 import { ReactComponent as Illustration } from '../images/illustration.svg'
 
 interface TUpload {
@@ -16,17 +17,28 @@ interface TImage {
 
 interface IProps {
   upload: TUpload,
-  setUpload: React.Dispatch<React.SetStateAction<TUpload>>
-  setImageData: React.Dispatch<React.SetStateAction<TImage>>
+  setUpload: Dispatch<SetStateAction<TUpload>>
+  setImageData: Dispatch<SetStateAction<TImage>>
 }
 
-const UploadImage: React.FC<IProps> = ({ upload, setUpload, setImageData }) => {
+const UploadImage: FC<IProps> = ({ upload, setUpload, setImageData }) => {
   const { data, isUploading, error } = upload;
+  
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      'image/png': ['.png'],
+      'image/jpg': ['.jpg'],
+      'image/jpeg': ['.jpeg'],
+    },
+    onDrop: (file) => onImageUpload(null, file[0])
+  })
 
   const URL = 'http://localhost:3001/uploads'
   
-  const onImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files![0];
+  const onImageUpload = (event: React.ChangeEvent<HTMLInputElement> | null, image?: any) => {
+    const file = image ? image : event?.target.files![0];
+    console.log(file);
+    
     const formData = new FormData();
 
     // Adding the file to the FormData
@@ -66,24 +78,21 @@ const UploadImage: React.FC<IProps> = ({ upload, setUpload, setImageData }) => {
   }
   
   return (
-    <div className='w-1/3 h-3/4 rounded-xl tracking-tight text-center font-medium shadow-2xl flex flex-col justify-center items-center'>
+    <div className='w-full h-full rounded-xl tracking-tight text-center font-medium shadow-2xl flex flex-col justify-center items-center md:w-1/3 md:h-3/4'>
       <div>
         <p className='text-[18px] text-[#4F4F4F] pb-3'>Upload your image</p>
         <p className='text-[10px] text-[#828282]'>File should be Jpeg, Png...</p>
         { upload.error && <p className='text-[10px] text-red-500 my-2'>{upload.error}</p> }
       </div>
 
-      {/* Drag & Drop image placeholder */}
-      <div className='mt-8 w-5/6 h-1/2 mx-auto bg-[#F6F8FB] border-2 border-[#97BEF4] border-dashed rounded-xl'>
-        <div className='flex flex-col items-center justify-center h-full'>
-          <Illustration className='h-15 mb-3' />
-          <p className='text-[10px] tracking-tight text-[#BDBDBD]'>Drag & Drop your image here</p>
-        </div>
+      <div {...getRootProps()} className='flex flex-col items-center justify-center cursor-pointer mt-6 w-5/6 h-1/2 mx-auto bg-[#F6F8FB] border-2 border-[#97BEF4] border-dashed rounded-xl z-10 transition-all hover:scale-105'>
+        <input {...getInputProps()} />
+        <Illustration className='h-15 mb-3' />
+        <p className='text-[10px] tracking-tight text-[#BDBDBD]'>Drag & Drop your image here</p>
       </div>
 
       <p className='text-[#BDBDBD] my-3'>Or</p>
 
-      {/* Upload Button */}
       <div className='flex items-center w-1/2'>
         <input
           type='file'
