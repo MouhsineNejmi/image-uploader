@@ -12,6 +12,10 @@ const upload = multer({storage});
 
 app.use(cors({ origin: '*' }));
 
+app.get('/', (req, res) => {
+  res.send('APP IS RUNNING!');
+})
+
 app.post('/uploads', upload.single('image'), async (req, res) => {
   const { file } = req;
 
