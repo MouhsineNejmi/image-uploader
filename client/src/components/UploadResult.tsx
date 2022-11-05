@@ -25,7 +25,7 @@ const UploadResult: React.FC<IProps> = ({ url }) => {
       </div>
 
       <div className='mb-5 overflow-hidden w-5/6 h-1/2 mx-auto bg-[#F6F8FB] rounded-xl'>
-        <img src={url} alt={url} className="w-full h-full object-cover" />
+        <img src={url} alt={url} className="w-full h-full object-contain" />
       </div>
       
       <div className='flex flex-col items-center md:text-left md:flex-row md:bg-[#F6F8FB] md:border-2 md:rounded-xl md:border-[#E0E0E0] md:w-5/6 md:h-11 md:pl-2 xl:h-16'>
