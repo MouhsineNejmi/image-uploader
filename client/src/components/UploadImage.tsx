@@ -25,7 +25,7 @@ const UploadImage: FC<IProps> = ({ setUpload, setImageData }) => {
     onDrop: (file) => onImageUpload(null, file[0])
   })
 
-  const URL = 'http://localhost:3001/uploads';
+  const URL = 'https://agile-spire-37015.herokuapp.com/uploads';
   const validFileTypes = ['image/png', 'image/jpg', 'image/jpeg'];
 
   const onImageUpload = (event: React.ChangeEvent<HTMLInputElement> | null, image?: any) => {
