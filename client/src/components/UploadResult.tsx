@@ -21,14 +21,14 @@ const UploadResult: React.FC<IProps> = ({ url }) => {
     <div className='w-full h-full rounded-xl tracking-tight text-center font-medium shadow-2xl flex flex-col justify-center items-center md:w-3/4 md:h-3/4 xl:w-1/2'>
       <div className='mb-5'>
         <AiOutlineCheck className='bg-[#219653] mx-auto text-white rounded-full w-[35px] h-[35px] p-1 mb-2' />
-        <p className='text-[18px] xl:text-[24px] text-[#4F4F4F]'>Uploaded Successfully!</p>
+        <p className='text-[18px] 2xl:text-[24px] text-[#4F4F4F]'>Uploaded Successfully!</p>
       </div>
 
       <div className='mb-5 overflow-hidden w-5/6 h-1/2 mx-auto bg-[#F6F8FB] rounded-xl'>
         <img src={url} alt={url} className="w-full h-full object-contain" />
       </div>
       
-      <div className='flex flex-col items-center md:text-left md:flex-row md:bg-[#F6F8FB] md:border-2 md:rounded-xl md:border-[#E0E0E0] md:w-5/6 md:h-11 md:pl-2 xl:h-16'>
+      <div className='flex flex-col items-center md:text-left md:flex-row md:bg-[#F6F8FB] md:border-2 md:rounded-xl md:border-[#E0E0E0] md:w-5/6 md:h-11 md:pl-2 2xl:h-16'>
         <a 
           href={url} 
           target="_blank" 
