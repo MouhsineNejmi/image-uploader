@@ -28,19 +28,19 @@ const UploadResult: React.FC<IProps> = ({ url }) => {
         <img src={url} alt={url} className="w-full h-full object-contain" />
       </div>
       
-      <div className='flex flex-col items-center md:text-left md:flex-row md:bg-[#F6F8FB] md:border-2 md:rounded-xl md:border-[#E0E0E0] md:w-5/6 md:h-11 md:pl-2 2xl:h-16'>
+      <div className='flex flex-col items-center md:text-left md:flex-row md:bg-[#F6F8FB] md:border-2 md:rounded-xl md:border-[#E0E0E0] md:w-5/6 md:h-12 md:pl-2 2xl:h-16'>
         <a 
           href={url} 
           target="_blank" 
           rel="noreferrer" 
-          className='w-5/6 text-[10px] xl:text-[15px] text-gray-500 mb-2 bg-[#F6F8FB] border-2 rounded-xl border-[#E0E0E0] md:w-3/4 md:border md:bg-transparent md:border-white md:mb-0'
+          className='w-5/6 text-[10px] xl:text-[12px] 2xl:text-[15px] text-gray-500 mb-2 bg-[#F6F8FB] border-2 rounded-xl border-[#E0E0E0] md:w-3/4 md:border-0 md:bg-transparent md:mb-0'
         >
           { `${url.slice(0,50)}...` }
         </a>
 
         <button 
           onClick={copyLink} 
-          className='w-1/2 py-2 text-[10px] xl:text-[15px] z-1 text-white bg-[#2F80ED] hover:bg-[#003d8d] h-full border-2 rounded-xl md:w-1/4'
+          className='w-1/2 py-2 text-[10px] xl:text-[12px] 2xl:text-[15px] z-1 text-white bg-[#2F80ED] hover:bg-[#003d8d] h-full border-2 rounded-xl md:w-1/4'
         >
           Copy Link!
         </button>
